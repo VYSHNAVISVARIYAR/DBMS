@@ -127,6 +127,77 @@ Q9: Insert the following employee record into the employee table: emp_id = 1, em
 SQL> INSERT INTO emp59 VALUES(1,'John Doe',60000,TO_DATE('2021-06-03','YYYY-MM-DD'),101,'johndoe@gmail.com');
 1 row created.
 
+Q10: Insert multiple records of employees into the employee table with emp_id, emp_name,
+emp_salary, and dept_id.
+
+SQL> INSERT INTO emp59 VALUES(2,'Harris',40000,TO_DATE('2021-06-06','YYYY-MM-DD'),102,'harris@gmail.com');
+
+1 row created.
+
+SQL> INSERT INTO emp59 VALUES(3,'Kevin',70000,TO_DATE('2021-06-08','YYYY-MM-DD'),103,'kevin@gmail.com');
+
+1 row created.
+
+SQL> INSERT INTO emp59 VALUES(4,'Darwin',50000,TO_DATE('2021-06-01','YYYY-MM-DD'),104,'darwin@gmail.com');
+
+1 row created.
+
+SQL> INSERT INTO emp59 VALUES(5,'Gouri',60000,TO_DATE('2021-06-09','YYYY-MM-DD'),105,'gouri@gmail.com');
+
+1 row created.
+
+SQL> select * from emp59;
+
+EMP_ID	   EMP_NAME	   EMP_SALARY EMP_JOIN_    DEPT_ID EMP_EMAIL
+---------- --------------- ---------- --------- ---------- ----------------------------------------------------------------------------------------------------
+1	   John Doe		66000 03-JUN-21        101 johndoe@gmail.com
+2	   Harris		40000 06-JUN-21        102 harris@gmail.com
+3	   Kevin		70000 08-JUN-21        103 kevin@gmail.com
+4	   Darwin		50000 01-JUN-21        104 darwin@gmail.com
+5	   Gouri		60000 09-JUN-21        105 gouri@gmail.com
+
+Q11: Update the salary of the employee with emp_id = 1 by increasing it by 10%.
+SQL> UPDATE emp59 SET emp_salary = emp_salary * 1.10 WHERE emp_id = 1;
+
+1 row updated.
+
+SQL> SELECT * FROM emp59;
+
+EMP_ID	   EMP_NAME	   EMP_SALARY EMP_JOIN_    DEPT_ID EMP_EMAIL
+---------- --------------- ---------- --------- ---------- ----------------------------------------------------------------------------------------------------
+1	   John Doe		66000 03-JUN-21        101 johndoe@gmail.com
+2	   Harris		40000 06-JUN-21        102 harris@gmail.com
+3	   Kevin		70000 08-JUN-21        103 kevin@gmail.com
+4	   Darwin		50000 01-JUN-21        104 darwin@gmail.com
+5	   Gouri		60000 09-JUN-21        105 gouri@gmail.com
+
+
+Q12: Delete the record of the employee with emp_id = 1.
+SQL> DELETE FROM emp59 WHERE emp_id = 1;
+
+1 row deleted.
+
+SQL> select * from emp59;
+
+EMP_ID	   EMP_NAME	   EMP_SALARY EMP_JOIN_    DEPT_ID EMP_EMAIL
+---------- --------------- ---------- --------- ---------- ----------------------------------------------------------------------------------------------------
+2	   Harris		40000 06-JUN-21        102 harris@gmail.com
+3	   Kevin		70000 08-JUN-21        103 kevin@gmail.com
+4	   Darwin		50000 01-JUN-21        104 darwin@gmail.com
+5	   Gouri		60000 09-JUN-21        105 gouri@gmail.com
+
+Q13: Update the emp_salary of employees in dept_id = 101 to 10% more if their current salary is less than 50000.
+
+SQL> UPDATE emp59 SET emp_salary = emp_salary*1.10 Where dept_id = 101 and emp_salary<50000;
+
+0 rows updated.
+
+
+
+
+
+
+
 
 
 
