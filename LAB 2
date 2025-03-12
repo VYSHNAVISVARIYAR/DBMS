@@ -1,0 +1,146 @@
+Q14: Write a SELECT query to list all employees with their emp_id, emp_name, and emp_salary.
+
+EMP_ID	   EMP_NAME	   EMP_SALARY EMP_JOIN_    DEPT_ID EMP_EMAIL
+---------- --------------- ---------- --------- ---------- ----------------------------------------------------------------------------------------------------
+1	   John Doe		60000 15-MAY-21        101 Johndoe@gmail.com
+2	   Harris		40000 06-JUN-21        102 harris@gmail.com
+3	   Kevin		70000 08-JUN-21        103 kevin@gmail.com
+4	   Darwin		50000 01-JUN-21        104 darwin@gmail.com
+5	   Gouri		60000 09-JUN-21        105 gouri@gmail.com
+
+
+Q15: Retrieve the emp_name, emp_salary, and emp_join_date for employees whose
+salary is greater than 50000.
+
+SQL> SELECT emp_name,emp_salary,emp_join_date FROM emp59 WHERE emp_salary>50000;
+
+EMP_NAME	EMP_SALARY EMP_JOIN_
+--------------- ---------- ---------
+Kevin		     70000 08-JUN-21
+Gouri		     60000 09-JUN-21
+John Doe	     60000 15-MAY-21
+
+Q16: List employees in the employee table ordered by emp_salary in descending order.
+
+SQL> SELECT * FROM emp59 ORDER BY emp_salary DESC;
+
+EMP_ID	   EMP_NAME	   EMP_SALARY EMP_JOIN_    DEPT_ID EMP_EMAIL
+---------- --------------- ---------- --------- ---------- ----------------------------------------------------------------------------------------------------
+3	   Kevin		70000 08-JUN-21        103 kevin@gmail.com
+5	   Gouri		60000 09-JUN-21        105 gouri@gmail.com
+1	   John Doe		60000 15-MAY-21        101 Johndoe@gmail.com
+4	   Darwin		50000 01-JUN-21        104 darwin@gmail.com
+2	   Harris		40000 06-JUN-21        102 harris@gmail.com
+
+
+
+Q17: Retrieve all employees' names and salaries who joined after 01-01-2020.
+
+SQL> Select emp_name, emp_salary FROM emp59 WHERE emp_join_date >DATE'2020-01-01';
+
+EMP_NAME	EMP_SALARY
+--------------- ----------
+Harris		     40000
+Kevin		     70000
+Darwin		     50000
+Gouri		     60000
+John Doe	     60000
+
+
+Q18: Write a query to select all employees whose name starts with "J".
+
+SQL> SELECT emp_name FROM emp59 WHERE emp_name like 'J%';
+
+EMP_NAME
+---------------
+John Doe
+
+
+Q19: Select the emp_name and emp_salary for employees whose salary is between 40000
+and 60000.
+
+SQL> SELECT emp_name,emp_salary from emp59 where emp_salary between 40000 and 60000;
+
+EMP_NAME	EMP_SALARY
+--------------- ----------
+Harris		     40000
+Darwin		     50000
+Gouri		     60000
+John Doe	     60000
+
+
+Q20: Write a query that groups employees by dept_id and shows the total salary per
+department.
+
+SQL> select dept_id,sum(emp_salary) as total_salary from emp59 group by dept_id;
+
+   DEPT_ID TOTAL_SALARY
+---------- ------------
+       105	  60000
+       104	  50000
+       103	  70000
+       101	  60000
+       102	  40000
+
+Q21: Retrieve the department-wise average salary, but only for those departments with an average salary above 60000.
+
+SQL> select dept_id,avg(emp_salary) as avg_salary from emp59 group by dept_id having avg(emp_salary)>60000;
+
+   DEPT_ID AVG_SALARY
+---------- ----------
+       103	70000
+
+
+Q22: List the departments and the number of employees in each department who earn above 50000.
+
+SQL> select dept_id,count(*) as num_employees from emp59 where emp_salary>50000 group by dept_id;
+
+   DEPT_ID NUM_EMPLOYEES
+---------- -------------
+       105	       1
+       103	       1
+       101	       1
+
+Q23: Use HAVING to list departments that have more than 3 employees.
+
+SQL> select * from emp59;
+
+EMP_ID	   EMP_NAME	   EMP_SALARY EMP_JOIN_    DEPT_ID EMP_EMAIL
+---------- --------------- ---------- --------- ---------- ----------------------------------------------------------------------------------------------------
+7	   Rethi		80000 02-JUN-21        102 rethi@gmail.com
+2	   Harris		40000 06-JUN-21        102 harris@gmail.com
+3	   Kevin		70000 08-JUN-21        103 kevin@gmail.com
+4	   Darwin		50000 01-JUN-21        104 darwin@gmail.com
+5	   Gouri		60000 09-JUN-21        105 gouri@gmail.com
+8	   Rohit		50000 05-AUG-21        102 rohith@gmail.com
+1	   John Doe		60000 15-MAY-21        101 Johndoe@gmail.com
+6	   Hari 		80000 07-APR-21        102 hari@gmail.com
+9	   Chandrika		30000 20-MAY-21        102 chandrika@gmail.com
+
+
+Q24: Write a query to find the names of employees who have a salary greater than the
+average salary in their department.
+
+SQL> select dept_id, count(emp_id) as total_employees from emp59 group by dept_id having count(emp_id)>3;
+
+   DEPT_ID TOTAL_EMPLOYEES
+---------- ---------------
+       102		 5
+
+
+Q24: Write a query to find the names of employees who have a salary greater than the average salary in their department.
+SQL> 
+select emp_name from emp59 where emp_Salary > (select avg(emp_salary) from emp59 where dept_id = emp59.dept_id);SQL> 
+
+EMP_NAME
+---------------
+Rethi
+Kevin
+Gouri
+John Doe
+Hari
+
+Q25: Select the emp_name and emp_salary of employees who are in departments that are located in 'Ernakulam'.
+
+
+
