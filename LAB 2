@@ -142,5 +142,62 @@ Hari
 
 Q25: Select the emp_name and emp_salary of employees who are in departments that are located in 'Ernakulam'.
 
+SQL> select * from emp59;
+
+EMP_ID	   EMP_NAME	   EMP_SALARY EMP_JOIN_    DEPT_ID EMP_EMAIL
+---------- --------------- ---------- --------- ---------- ----------------------------------------------------------------------------------------------------
+7	   Rethi		80000 02-JUN-21        102 rethi@gmail.com
+2	   Harris		40000 06-JUN-21        102 harris@gmail.com
+3	   Kevin		70000 08-JUN-21        103 kevin@gmail.com
+4	   Darwin		50000 01-JUN-21        104 darwin@gmail.com
+5	   Gouri		60000 09-JUN-21        105 gouri@gmail.com
+8	   Rohit		50000 05-AUG-21        102 rohith@gmail.com
+1	   John Doe		60000 15-MAY-21        101 Johndoe@gmail.com
+6	   Hari 		80000 07-APR-21        102 hari@gmail.com
+9	   Chandrika		30000 20-MAY-21        102 chandrika@gmail.com
+10	   Athira	      1000000 07-JUN-21        106 athira@gmail.com
+
+10 rows selected.
+
+SQL> SELECT emp_name,emp_salary FROM emp59 WHERE dept_id IN(SELECT dept_id FROM department59 WHERE dept_location ='Ernakulam');  
+
+EMP_NAME	EMP_SALARY
+--------------- ----------
+Athira		   1000000
+
+Q26: Find the emp_name of employees who earn more than the highest salary in department 102.
+
+SQL> select emp_name from emp59 where emp_salary>(select max(emp_salary) from emp59 where dept_id = 102);
+
+EMP_NAME
+---------------
+Athira
+
+Q27: Write a query that returns the department name of the department with the highest total salary.
+SQL> select dept_name from department59 where dept_id = (select dept_id from emp59 group by dept_id order by sum(emp_salary) DESC fetch first row only);
+
+DEPT_NAME
+---------------
+EEE
+
+Q28: Find the emp_id and emp_name of employees who are working in departments with less than 10 employees.
+SQL> select emp_id,emp_name from emp59 where dept_id in(select dept_id from emp59 group by dept_id having count(*)<10);
+
+EMP_ID	   EMP_NAME
+---------- ---------------
+5	   Gouri
+4	   Darwin
+3	   Kevin
+1	   John Doe
+7	   Rethi
+2	   Harris
+8	   Rohit
+6	   Hari
+9	   Chandrika
+10	   Athira
+
+10 rows selected.
+
+
 
 
