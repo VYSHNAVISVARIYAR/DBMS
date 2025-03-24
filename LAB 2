@@ -198,6 +198,54 @@ EMP_ID	   EMP_NAME
 
 10 rows selected.
 
+Q33: Write a query to find the total salary paid in each department.
+SQL> select dept_id, sum(emp_salary) as Total_salary from emp59 group by dept_id;
+
+   DEPT_ID TOTAL_SALARY
+---------- ------------
+       105	  60000
+       104	  50000
+       103	  70000
+       101	  60000
+       102	 280000
+       106	1000000
+
+6 rows selected.
+
+Q34: Use AVG() to find the average salary of employees in the 'Marketing' department.
+
+Q35: Find the employee with the highest salary in each department using MAX().
+SQL> select dept_id,emp_name,emp_salary as highest_salary from emp59 e where emp_salary = (select max(emp_salary) from emp59 where dept_id = e.dept_id);
+
+   DEPT_ID EMP_NAME	   HIGHEST_SALARY
+---------- --------------- --------------
+       102 Rethi		    80000
+       103 Kevin		    70000
+       104 Darwin		    50000
+       105 Gouri		    60000
+       101 John Doe		    60000
+       102 Hari 		    80000
+       106 Athira		  1000000
+       107 Latha		   150000
+
+8 rows selected.
+
+Q36: Write a query that finds the total number of employees in each department.
+SQL> select dept_id, count(*) as total_employees from emp59 group by dept_id;
+
+   DEPT_ID TOTAL_EMPLOYEES
+---------- ---------------
+       107		 2
+       105		 1
+       104		 1
+       103		 1
+       101		 1
+       102		 5
+       106		 1
+
+7 rows selected.
+
+Q37: Calculate the sum of the salaries of all employees whose emp_salary is greater than 50000.
 
 
 
