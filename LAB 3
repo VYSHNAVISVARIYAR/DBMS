@@ -1,0 +1,169 @@
+Q38: Write an INNER JOIN query to list employee names and their corresponding department names.
+SQL> select e.emp_name,d.dept_name from emp59 e inner join department59 d on e.dept_id = d.dept_id;
+
+EMP_NAME	DEPT_NAME
+--------------- ---------------
+Rethi		BCA
+Harris		BCA
+Kevin		BBA
+Darwin		MBA
+Gouri		Btech CS
+Rohit		BCA
+John Doe	MCA
+Hari		BCA
+Chandrika	BCA
+Athira		EEE
+Neeraja 	Marketing
+Latha		Marketing
+
+12 rows selected.
+
+Q39: Use a LEFT JOIN to list all employees and their department names, including those who do not belong to any department.
+
+EMP_NAME	DEPT_NAME
+--------------- ---------------
+John Doe	MCA
+Rethi		BCA
+Harris		BCA
+Rohit		BCA
+Hari		BCA
+Chandrika	BCA
+Kevin		BBA
+Darwin		MBA
+Gouri		Btech CS
+Athira		EEE
+Neeraja 	Marketing
+Latha		Marketing
+Sana
+
+Q40: Write a RIGHT JOIN to list all departments and their corresponding employees,including departments with no employees.
+
+SQL> insert into department59 values(108,'Mtech CS','Kottayam');
+
+1 row created.
+
+SQL> select e.emp_name,d.dept_name from emp59 e right join department59 d on e.dept_id = d.dept_id;
+
+EMP_NAME	DEPT_NAME
+--------------- ---------------
+Rethi		BCA
+Harris		BCA
+Kevin		BBA
+Darwin		MBA
+Gouri		Btech CS
+Rohit		BCA
+John Doe	MCA
+Hari		BCA
+Chandrika	BCA
+Athira		EEE
+Neeraja 	Marketing
+Latha		Marketing
+		Mtech CS
+
+13 rows selected.
+
+41.
+SQL> select e.emp_name,d.dept_name from emp59 e left outer join department59 d on e.dept_id = d.dept_id;
+
+EMP_NAME	DEPT_NAME
+--------------- ---------------
+John Doe	MCA
+Rethi		BCA
+Harris		BCA
+Rohit		BCA
+Hari		BCA
+Chandrika	BCA
+Kevin		BBA
+Darwin		MBA
+Gouri		Btech CS
+Athira		EEE
+Neeraja 	Marketing
+
+EMP_NAME	DEPT_NAME
+--------------- ---------------
+Latha		Marketing
+Sana
+
+
+42.
+
+SQL> select * from emp59;
+
+EMP_ID	   EMP_NAME	   EMP_SALARY EMP_JOIN_    DEPT_ID EMP_EMAIL
+---------- --------------- ---------- --------- ---------- ----------------------------------------------------------------------------------------------------
+7	   Rethi		80000 02-JUN-21        102 rethi@gmail.com
+2	   Harris		40000 06-JUN-21        102 harris@gmail.com
+3	   Kevin		70000 08-JUN-21        103 kevin@gmail.com
+4	   Darwin		50000 01-JUN-21        104 darwin@gmail.com
+5	   Gouri		60000 09-JUN-21        105 gouri@gmail.com
+8	   Rohit		50000 05-AUG-21        102 rohith@gmail.com
+1	   John Doe		60000 15-MAY-21        101 Johndoe@gmail.com
+6	   Hari 		80000 07-APR-21        102 hari@gmail.com
+9	   Chandrika		30000 20-MAY-21        102 chandrika@gmail.com
+13	   Sana 		30000 14-OCT-23 	   sana@gmail.com
+14	   Megha		42000 12-SEP-09        109 megha@gmail.com
+15	   Mikhael		49000 02-APR-05        109 mikhael@gmail.com
+10	   Athira	      1000000 07-JUN-21        106 athira@gmail.com
+11	   Neeraja	       120000 10-MAY-21        107 nrv@gmail.com
+12	   Latha	       150000 10-MAR-21        107 latha@gmail.com
+
+15 rows selected.
+
+SQL> select * from department59;
+
+   DEPT_ID DEPT_NAME	   DEPT_LOCATION
+---------- --------------- --------------------------------------------------
+       101 MCA		   North Block
+       102 BCA		   South Block
+       103 BBA		   East Block
+       104 MBA		   West Block
+       105 Btech CS	   Main Block
+       108 Mtech CS	   Kottayam
+       109 Mtech EEE	   Kollam
+       106 EEE		   Ernakulam
+       107 Marketing	   Kottayam
+
+9 rows selected.
+
+
+
+SQL> select emp_name,emp_join_date from emp59 where emp_join_date<TO_DATE('2010-01-01','YYYY-MM-DD') UNION select emp_name,emp_join_date from emp59 where emp_join_date>TO_DATE('2018-12-31','YYYY-MM-DD');
+
+EMP_NAME	EMP_JOIN_
+--------------- ---------
+Athira		07-JUN-21
+Chandrika	20-MAY-21
+Darwin		01-JUN-21
+Gouri		09-JUN-21
+Hari		07-APR-21
+Harris		06-JUN-21
+John Doe	15-MAY-21
+Kevin		08-JUN-21
+Latha		10-MAR-21
+Megha		12-SEP-09
+Mikhael 	02-APR-05
+
+EMP_NAME	EMP_JOIN_
+--------------- ---------
+Neeraja 	10-MAY-21
+Rethi		02-JUN-21
+Rohit		05-AUG-21
+Sana		14-OCT-23
+
+15 rows selected.
+
+49.
+
+SQL> select emp_name from emp59 where emp_salary>=40000 INTERSECT select emp_name from emp59 where emp_salary<=50000;
+
+EMP_NAME
+---------------
+Darwin
+Harris
+Megha
+Mikhael
+Rohit
+
+
+
+
