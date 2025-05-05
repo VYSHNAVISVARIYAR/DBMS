@@ -1,0 +1,145 @@
+Qn2.Create a collection student consists of details like rollno, name, phoneno, marks, city,
+year of course, score.
+
+db.createCollection("students")
+{ "ok" : 1 }
+
+db.students.insertOne({rollno:1,name:"Rohith",phoneno:1234567890,city:"Trivandrum",year_of_Course:2021,score:91})
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("681858e9d59b46ac4415cc03")
+}
+
+
+
+Qn3.Insert the details of the multiple students (atleast 5) in the form of documents in the student collection.
+
+db.students.insertMany([{rollno:2,name:"Rohini",phoneno:1234567000,marks:25,city:"Kottayam",year_of_Course:2022,score:92},
+{rollno:3,name:"Karthik",phoneno:2234567890,city:"Kasargod",year_of_Course:2021,score:91},
+{rollno:4,name:"Sarayu",phoneno:1231167890,city:"Kozhikode",year_of_Course:2019,score:89},
+{rollno:5,name:"Sujith",phoneno:1234510890,city:"Thrissur",year_of_Course:2020,score:90},
+{rollno:6,name:"Navya",phoneno:1104567890,city:"Kottayam",year_of_Course:2022,score:85},
+{rollno:7,name:"Hanan",phoneno:1236767890,city:"Trivandrum",year_of_Course:2020,score:88}])
+
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("68185917d59b46ac4415cc04"),
+		ObjectId("68185917d59b46ac4415cc05"),
+		ObjectId("68185917d59b46ac4415cc06"),
+		ObjectId("68185917d59b46ac4415cc07"),
+		ObjectId("68185917d59b46ac4415cc08"),
+		ObjectId("68185917d59b46ac4415cc09")
+	]
+}
+
+
+
+Qn.4 Retrieve the fields rollno, name, phoneno, city for all the documents in the collection student.
+
+db.students.find({},{rollno:1,name:1,phoneno:1,city:1})
+{ "_id" : ObjectId("681858e9d59b46ac4415cc03"), "rollno" : 1, "name" : "Rohith", "phoneno" : 1234567890, "city" : "Trivandrum" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc04"), "rollno" : 2, "name" : "Rohini", "phoneno" : 1234567000, "city" : "Kottayam" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc05"), "rollno" : 3, "name" : "Karthik", "phoneno" : 2234567890, "city" : "Kasargod" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc06"), "rollno" : 4, "name" : "Sarayu", "phoneno" : 1231167890, "city" : "Kozhikode" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc07"), "rollno" : 5, "name" : "Sujith", "phoneno" : 1234510890, "city" : "Thrissur" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc08"), "rollno" : 6, "name" : "Navya", "phoneno" : 1104567890, "city" : "Kottayam" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc09"), "rollno" : 7, "name" : "Hanan", "phoneno" : 1236767890, "city" : "Trivandrum" }
+
+
+5. Display the details of students who achieved a score more than 90 and are from ‘Thrissur’.
+
+db.students.insertOne({rollno:6,name:"Kavin",phoneno:1234107890,city:"Thrissur",year_of_Course:2021,score:91})
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("68185af2d59b46ac4415cc0a")
+}
+
+db.students.find({score: {$gt:90},city:"Thrissur"});
+
+{ "_id" : ObjectId("68185af2d59b46ac4415cc0a"), "rollno" : 6, "name" : "Kavin", "phoneno" : 1234107890, "city" : "Thrissur", "year_of_Course" : 2021, "score" : 91 }
+
+
+Qn6. Update the phone number of Sujith in the student collection. Retrieve the updated information.
+db.students.updateOne({rollno:5},{$set:{phoneno:9876543210}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+db.students.find({rollno:5})
+{ "_id" : ObjectId("68185917d59b46ac4415cc07"), "rollno" : 5, "name" : "Sujith", "phoneno" : 9876543210, "city" : "Thrissur", "year_of_Course" : 2020, "score" : 90 }
+
+
+7.Update the year of course in all the documents in the student collection to 2021. Also retrieve the updated information.
+db.students.updateMany({},{$set:{year_of_course:2021}})
+{ "acknowledged" : true, "matchedCount" : 8, "modifiedCount" : 8 }
+
+db.students.find()
+{ "_id" : ObjectId("681858e9d59b46ac4415cc03"), "rollno" : 1, "name" : "Rohith", "phoneno" : 1234567890, "city" : "Trivandrum", "year_of_Course" : 2021, "score" : 91, "year_of_course" : 2021 }
+{ "_id" : ObjectId("68185917d59b46ac4415cc04"), "rollno" : 2, "name" : "Rohini", "phoneno" : 1234567000, "marks" : 25, "city" : "Kottayam", "year_of_Course" : 2022, "score" : 92, "year_of_course" : 2021 }
+{ "_id" : ObjectId("68185917d59b46ac4415cc05"), "rollno" : 3, "name" : "Karthik", "phoneno" : 2234567890, "city" : "Kasargod", "year_of_Course" : 2021, "score" : 91, "year_of_course" : 2021 }
+{ "_id" : ObjectId("68185917d59b46ac4415cc06"), "rollno" : 4, "name" : "Sarayu", "phoneno" : 1231167890, "city" : "Kozhikode", "year_of_Course" : 2019, "score" : 89, "year_of_course" : 2021 }
+{ "_id" : ObjectId("68185917d59b46ac4415cc07"), "rollno" : 5, "name" : "Sujith", "phoneno" : 9876543210, "city" : "Thrissur", "year_of_Course" : 2020, "score" : 90, "year_of_course" : 2021 }
+{ "_id" : ObjectId("68185917d59b46ac4415cc08"), "rollno" : 6, "name" : "Navya", "phoneno" : 1104567890, "city" : "Kottayam", "year_of_Course" : 2022, "score" : 85, "year_of_course" : 2021 }
+{ "_id" : ObjectId("68185917d59b46ac4415cc09"), "rollno" : 7, "name" : "Hanan", "phoneno" : 1236767890, "city" : "Trivandrum", "year_of_Course" : 2020, "score" : 88, "year_of_course" : 2021 }
+{ "_id" : ObjectId("68185af2d59b46ac4415cc0a"), "rollno" : 6, "name" : "Kavin", "phoneno" : 1234107890, "city" : "Thrissur", "year_of_Course" : 2021, "score" : 91, "year_of_course" : 2021 }
+
+
+8. Display the city of ‘Sarayu’.
+
+db.students.find({name:"Sarayu"},{city:1})
+{ "_id" : ObjectId("68185917d59b46ac4415cc06"), "city" : "Kozhikode" }
+
+9.9. Retrieve the number of students who joined after May 2020 from the collection.
+
+db.students.find().count()
+8
+
+10. Arrange the name of the students in ascending order along with all the columns.
+
+> db.students.find().sort({name:1})
+{ "_id" : ObjectId("68185917d59b46ac4415cc09"), "rollno" : 7, "name" : "Hanan", "phoneno" : 1236767890, "city" : "Trivandrum", "year_of_Course" : 2020, "score" : 88, "year_of_course" : 2021 }
+{ "_id" : ObjectId("68185917d59b46ac4415cc05"), "rollno" : 3, "name" : "Karthik", "phoneno" : 2234567890, "city" : "Kasargod", "year_of_Course" : 2021, "score" : 91, "year_of_course" : 2021 }
+{ "_id" : ObjectId("68185af2d59b46ac4415cc0a"), "rollno" : 6, "name" : "Kavin", "phoneno" : 1234107890, "city" : "Thrissur", "year_of_Course" : 2021, "score" : 91, "year_of_course" : 2021 }
+{ "_id" : ObjectId("68185917d59b46ac4415cc08"), "rollno" : 6, "name" : "Navya", "phoneno" : 1104567890, "city" : "Kottayam", "year_of_Course" : 2022, "score" : 85, "year_of_course" : 2021 }
+{ "_id" : ObjectId("68185917d59b46ac4415cc04"), "rollno" : 2, "name" : "Rohini", "phoneno" : 1234567000, "marks" : 25, "city" : "Kottayam", "year_of_Course" : 2022, "score" : 92, "year_of_course" : 2021 }
+{ "_id" : ObjectId("681858e9d59b46ac4415cc03"), "rollno" : 1, "name" : "Rohith", "phoneno" : 1234567890, "city" : "Trivandrum", "year_of_Course" : 2021, "score" : 91, "year_of_course" : 2021 }
+{ "_id" : ObjectId("68185917d59b46ac4415cc06"), "rollno" : 4, "name" : "Sarayu", "phoneno" : 1231167890, "city" : "Kozhikode", "year_of_Course" : 2019, "score" : 89, "year_of_course" : 2021 }
+{ "_id" : ObjectId("68185917d59b46ac4415cc07"), "rollno" : 5, "name" : "Sujith", "phoneno" : 9876543210, "city" : "Thrissur", "year_of_Course" : 2020, "score" : 90, "year_of_course" : 2021 }
+
+11.Rename attribute city as town.
+db.students.updateMany({},{ $rename: {"city": "town"}} )
+
+> db.students.updateMany({},{ $rename: {"city": "town"}} )
+{ "acknowledged" : true, "matchedCount" : 8, "modifiedCount" : 8 }
+
+> db.students.find()
+{ "_id" : ObjectId("681858e9d59b46ac4415cc03"), "rollno" : 1, "name" : "Rohith", "phoneno" : 1234567890, "year_of_Course" : 2021, "score" : 91, "year_of_course" : 2021, "town" : "Trivandrum" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc04"), "rollno" : 2, "name" : "Rohini", "phoneno" : 1234567000, "marks" : 25, "year_of_Course" : 2022, "score" : 92, "year_of_course" : 2021, "town" : "Kottayam" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc05"), "rollno" : 3, "name" : "Karthik", "phoneno" : 2234567890, "year_of_Course" : 2021, "score" : 91, "year_of_course" : 2021, "town" : "Kasargod" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc06"), "rollno" : 4, "name" : "Sarayu", "phoneno" : 1231167890, "year_of_Course" : 2019, "score" : 89, "year_of_course" : 2021, "town" : "Kozhikode" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc07"), "rollno" : 5, "name" : "Sujith", "phoneno" : 9876543210, "year_of_Course" : 2020, "score" : 90, "year_of_course" : 2021, "town" : "Thrissur" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc08"), "rollno" : 6, "name" : "Navya", "phoneno" : 1104567890, "year_of_Course" : 2022, "score" : 85, "year_of_course" : 2021, "town" : "Kottayam" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc09"), "rollno" : 7, "name" : "Hanan", "phoneno" : 1236767890, "year_of_Course" : 2020, "score" : 88, "year_of_course" : 2021, "town" : "Trivandrum" }
+{ "_id" : ObjectId("68185af2d59b46ac4415cc0a"), "rollno" : 6, "name" : "Kavin", "phoneno" : 1234107890, "year_of_Course" : 2021, "score" : 91, "year_of_course" : 2021, "town" : "Thrissur" }
+
+12. Delete the details of the student whose name is ‘Sujith’ from the student collection
+
+> db.students.deleteOne({"name":"Sujith"})
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+> db.students.find()
+{ "_id" : ObjectId("681858e9d59b46ac4415cc03"), "rollno" : 1, "name" : "Rohith", "phoneno" : 1234567890, "year_of_Course" : 2021, "score" : 91, "year_of_course" : 2021, "town" : "Trivandrum" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc04"), "rollno" : 2, "name" : "Rohini", "phoneno" : 1234567000, "marks" : 25, "year_of_Course" : 2022, "score" : 92, "year_of_course" : 2021, "town" : "Kottayam" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc05"), "rollno" : 3, "name" : "Karthik", "phoneno" : 2234567890, "year_of_Course" : 2021, "score" : 91, "year_of_course" : 2021, "town" : "Kasargod" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc06"), "rollno" : 4, "name" : "Sarayu", "phoneno" : 1231167890, "year_of_Course" : 2019, "score" : 89, "year_of_course" : 2021, "town" : "Kozhikode" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc08"), "rollno" : 6, "name" : "Navya", "phoneno" : 1104567890, "year_of_Course" : 2022, "score" : 85, "year_of_course" : 2021, "town" : "Kottayam" }
+{ "_id" : ObjectId("68185917d59b46ac4415cc09"), "rollno" : 7, "name" : "Hanan", "phoneno" : 1236767890, "year_of_Course" : 2020, "score" : 88, "year_of_course" : 2021, "town" : "Trivandrum" }
+{ "_id" : ObjectId("68185af2d59b46ac4415cc0a"), "rollno" : 6, "name" : "Kavin", "phoneno" : 1234107890, "year_of_Course" : 2021, "score" : 91, "year_of_course" : 2021, "town" : "Thrissur" }
+
+
+
+
+
+
+
+
+
